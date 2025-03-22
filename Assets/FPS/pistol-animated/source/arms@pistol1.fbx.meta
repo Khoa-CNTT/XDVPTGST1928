@@ -276,8 +276,8 @@ ModelImporter:
       name: idle
       takeName: CINEMA_4D_Main
       internalID: 994298133814082007
-      firstFrame: 177
-      lastFrame: 187
+      firstFrame: 168
+      lastFrame: 195
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
