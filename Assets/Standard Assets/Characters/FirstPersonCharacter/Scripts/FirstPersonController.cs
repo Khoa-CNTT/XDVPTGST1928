@@ -11,6 +11,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
+        public static bool inventorySwitchedOn = false;
+
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
@@ -64,6 +66,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                if(inventorySwitchedOn == false)
+                {
+                    inventorySwitchedOn = true;
+                }
+                else if(inventorySwitchedOn == true)
+                {
+                    inventorySwitchedOn = false;
+                }
+            }
+            if(inventorySwitchedOn == false)
+            {
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
@@ -84,6 +99,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
+            }
         }
 
 
@@ -97,6 +113,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
+            if(inventorySwitchedOn == false)
+            {
             float speed;
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
@@ -134,6 +152,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             UpdateCameraPosition(speed);
 
             m_MouseLook.UpdateCursorLock();
+            }
         }
 
 

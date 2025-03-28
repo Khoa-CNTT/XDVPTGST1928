@@ -12,7 +12,7 @@ public class LookMode : MonoBehaviour
     private Light flashLight;
     private bool nightVisionOn = false; 
     private bool flashLightOn = false; 
-    private bool inventoryOn = false; 
+    
 
     void Start()
     {
@@ -67,10 +67,10 @@ public class LookMode : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.B))
         {
-            if(inventoryOn == false)
+            if(SaveScript.inventoryOpen == false)
             {
                 vol.profile = inventory;
-                inventoryOn = true;
+
                 if(flashLightOn == true)
                 {
                     flashLightOverlay.SetActive(false);
@@ -85,10 +85,10 @@ public class LookMode : MonoBehaviour
                     nightVisionOn = false;
                 }
             }
-            else if (inventoryOn == true)
+            else if (SaveScript.inventoryOpen == true)
             {
                 vol.profile = standard;
-                inventoryOn = false;
+
             }
         }
 
