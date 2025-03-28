@@ -6,11 +6,13 @@ public class LookMode : MonoBehaviour
     private PostProcessVolume vol;
     public PostProcessProfile standard;
     public PostProcessProfile nightVision;
+    public PostProcessProfile inventory;
     public GameObject flashLightOverlay;
     public GameObject nightVisionOverlay;
     private Light flashLight;
     private bool nightVisionOn = false; 
     private bool flashLightOn = false; 
+    private bool inventoryOn = false; 
 
     void Start()
     {
@@ -60,6 +62,33 @@ public class LookMode : MonoBehaviour
                 flashLight.enabled = false;
                 flashLightOverlay.GetComponent<FlashLightScript>().StopDrain();
                 flashLightOn = false;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            if(inventoryOn == false)
+            {
+                vol.profile = inventory;
+                inventoryOn = true;
+                if(flashLightOn == true)
+                {
+                    flashLightOverlay.SetActive(false);
+                    flashLight.enabled = false;
+                    flashLightOverlay.GetComponent<FlashLightScript>().StopDrain();
+                }
+                if(nightVisionOverlay == true)
+                {
+                    nightVisionOverlay.SetActive(false);
+                    nightVisionOverlay.GetComponent<NightVision>().StopDrain();
+                    this.gameObject.GetComponent<Camera>().fieldOfView = 60;
+                    nightVisionOn = false;
+                }
+            }
+            else if (inventoryOn == true)
+            {
+                vol.profile = standard;
+                inventoryOn = false;
             }
         }
 
