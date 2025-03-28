@@ -4,6 +4,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class SaveScript : MonoBehaviour
 {
     public static bool inventoryOpen = false;
+    public static int weaponID = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
