@@ -52,9 +52,12 @@ public class WeaponManager : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0))
         {
+            if(SaveScript.inventoryOpen == false)
+            {
             anim.SetTrigger("Attack");
             audioPlayer.clip = weaponSounds[weaponID];
             audioPlayer.Play();
+            }
         }
     }
 
