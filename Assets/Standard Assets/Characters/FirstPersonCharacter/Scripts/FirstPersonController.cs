@@ -29,6 +29,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
+        public bool playFootstepSounds = true;
+
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -163,6 +165,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayFootStepAudio()
         {
+            if(playFootstepSounds == true)
+            {
             if (!m_CharacterController.isGrounded)
             {
                 return;
@@ -175,6 +179,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // move picked sound to index 0 so it's not picked next time
             m_FootstepSounds[n] = m_FootstepSounds[0];
             m_FootstepSounds[0] = m_AudioSource.clip;
+            }
         }
 
 
