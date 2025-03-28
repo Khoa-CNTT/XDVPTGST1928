@@ -15,7 +15,7 @@ public class LighterScrip : MonoBehaviour
         
     }
 
-    void OnDisnable()
+    void OnDisable()
     {
         lighterObj.SetActive(false);
     }
