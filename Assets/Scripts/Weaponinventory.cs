@@ -18,6 +18,10 @@ public class Weaponinventory : MonoBehaviour
     void Start()
     {
         audioPlayer = GetComponent<AudioSource>();
+
+        bigIcon.sprite = bigIcons[0];
+        title.text = titles[0];
+        description.text = descriptions[0];
         
     }
 
