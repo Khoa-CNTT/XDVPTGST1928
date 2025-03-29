@@ -5,10 +5,13 @@ public class SaveScript : MonoBehaviour
 {
     public static bool inventoryOpen = false;
     public static int weaponID = 0;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public static bool[] weaponsPickedUp = new bool[8];
+
+
+
     void Start()
     {
-        
+        weaponsPickedUp[1] = true;
     }
 
     // Update is called once per frame
