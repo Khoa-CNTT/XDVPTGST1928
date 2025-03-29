@@ -30,6 +30,7 @@ public class LookMode : MonoBehaviour
     {
         if(Input.GetKeyUp(KeyCode.N))
         {
+            if (SaveScript.inventoryOpen == false){
             if(nightVisionOn == false)
             {
                 vol.profile = nightVision;
@@ -45,10 +46,12 @@ public class LookMode : MonoBehaviour
                 this.gameObject.GetComponent<Camera>().fieldOfView = 60;
                 nightVisionOn = false;
             }
+            }
         }
 
         if(Input.GetKeyUp(KeyCode.F))
         {
+            if (SaveScript.inventoryOpen == false){
             if(flashLightOn == false)
             {
                 
@@ -64,6 +67,7 @@ public class LookMode : MonoBehaviour
                 flashLight.enabled = false;
                 flashLightOverlay.GetComponent<FlashLightScript>().StopDrain();
                 flashLightOn = false;
+            }
             }
         }
 
