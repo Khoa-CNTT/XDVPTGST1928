@@ -11,6 +11,7 @@ public class ItemsInventory : MonoBehaviour
     public string[] descriptions;
     public Text description;
     public Button[] itemButtons;
+    public GameObject useButton;
 
     private AudioSource audioPlayer;
     public AudioClip click, select;
@@ -23,6 +24,7 @@ public class ItemsInventory : MonoBehaviour
         bigIcon.sprite = bigIcons[0];
         title.text = titles[0];
         description.text = descriptions[0];
+        useButton.SetActive(false);
     }
 
     private void OnEnable()
@@ -56,6 +58,15 @@ public class ItemsInventory : MonoBehaviour
         audioPlayer.clip = click;
         audioPlayer.Play();
         chosenItemNumber = itemNumber;
+
+        if(itemNumber < 4)
+        {
+            useButton.SetActive(false);
+        }
+        else
+        {
+            useButton.SetActive(true);
+        }
     }
 
     public void AssignItem()
