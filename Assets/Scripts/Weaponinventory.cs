@@ -136,6 +136,21 @@ public class Weaponinventory : MonoBehaviour
         }
     }
 
+
+    public void CombineAssignWeapon()
+    {
+        if (chosenWeaponNumber == 6)
+        {
+            SaveScript.weaponID = chosenWeaponNumber;
+        }
+        if (chosenWeaponNumber == 7)
+        {
+            SaveScript.weaponID = chosenWeaponNumber += 1;
+        }
+        audioPlayer.clip = select;
+        audioPlayer.Play();
+    }
+
     public void AssignWeapon()
     {
         SaveScript.weaponID = chosenWeaponNumber;
