@@ -12,6 +12,7 @@ public class ItemsInventory : MonoBehaviour
     public Text description;
     public Button[] itemButtons;
     public GameObject useButton;
+    public Text amtsText;
 
     private AudioSource audioPlayer;
     public AudioClip click, select;
@@ -58,6 +59,7 @@ public class ItemsInventory : MonoBehaviour
         audioPlayer.clip = click;
         audioPlayer.Play();
         chosenItemNumber = itemNumber;
+        amtsText.text = "Amounts: " + SaveScript.itemAmts[itemNumber];
 
         if(itemNumber < 4)
         {

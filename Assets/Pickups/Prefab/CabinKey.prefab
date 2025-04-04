@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 3312129397113201703}
   - component: {fileID: 2302741162618047723}
   - component: {fileID: 2642710884770599228}
+  - component: {fileID: 7885668282865502493}
   m_Layer: 8
   m_Name: CabinKey
   m_TagString: item
@@ -302,6 +303,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.11934259, y: 0.515101, z: 1.1009132}
   m_Center: {x: -0.008437071, y: 0.010201404, z: 0.34782594}
+--- !u!114 &7885668282865502493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5112139778756481438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fa66f927976244f8e6d7c241fa30e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chooseItem: 11
 --- !u!1 &7971744809937444076
 GameObject:
   m_ObjectHideFlags: 0

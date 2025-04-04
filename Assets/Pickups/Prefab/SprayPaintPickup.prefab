@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3058774514382031428}
   - component: {fileID: 1711611198344789178}
+  - component: {fileID: 732112146650707015}
   m_Layer: 8
   m_Name: SprayPaintPickup
   m_TagString: weapon
@@ -54,6 +55,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.16964917, y: 0.36645842, z: 0.16574036}
   m_Center: {x: -0.0011064853, y: 0.000023345152, z: -0.48584497}
+--- !u!114 &732112146650707015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2798242735157988805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0471bf1512b4344e8ce1e31b285493e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chooseWeapon: 6
 --- !u!1 &8488306043232483526
 GameObject:
   m_ObjectHideFlags: 0

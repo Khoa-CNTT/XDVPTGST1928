@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1410517366106918851}
   - component: {fileID: 1061590055030694723}
+  - component: {fileID: 4363908963218154954}
   m_Layer: 8
   m_Name: BottlePickup
   m_TagString: weapon
@@ -54,6 +55,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 15.039612, y: 45.630985, z: 15.2463045}
   m_Center: {x: 0.30101192, y: 22.315496, z: -0.07976185}
+--- !u!114 &4363908963218154954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374727032671033358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0471bf1512b4344e8ce1e31b285493e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chooseWeapon: 7
 --- !u!1 &699713092530442370
 GameObject:
   m_ObjectHideFlags: 0

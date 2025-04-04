@@ -10,6 +10,7 @@ public class Weaponinventory : MonoBehaviour
     public string[] descriptions;
     public Text description;
     public Button[] weaponButtons;
+    public Text amtsText;
 
     private AudioSource audioPlayer;
     public AudioClip click, select;
@@ -90,6 +91,7 @@ public class Weaponinventory : MonoBehaviour
         audioPlayer.clip = click;
         audioPlayer.Play();
         chosenWeaponNumber = weaponnumber;
+        amtsText.text = "Amounts: " + SaveScript.weaponAmts[weaponnumber];
 
 
         if (chosenWeaponNumber > 5)

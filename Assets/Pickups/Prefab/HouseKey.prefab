@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 1446325770690214291}
   - component: {fileID: 6592334374854941544}
   - component: {fileID: 2037878299555684764}
+  - component: {fileID: 1314818283770109985}
   m_Layer: 8
   m_Name: HouseKey
   m_TagString: item
@@ -302,6 +303,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 635.91003, y: 66.80421, z: 834.6939}
   m_Center: {x: -10.032654, y: -32.902103, z: 12.5312805}
+--- !u!114 &1314818283770109985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585906582176192349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fa66f927976244f8e6d7c241fa30e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chooseItem: 10
 --- !u!1 &4730971420714491766
 GameObject:
   m_ObjectHideFlags: 0

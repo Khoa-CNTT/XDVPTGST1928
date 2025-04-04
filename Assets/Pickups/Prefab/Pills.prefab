@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6604984729378858375}
   - component: {fileID: 6278954863123012718}
   - component: {fileID: 4807034426424063470}
+  - component: {fileID: 6353486735796923884}
   m_Layer: 8
   m_Name: Pills
   m_TagString: item
@@ -131,3 +132,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.021490453, y: 0.021711437, z: 0.03495929}
   m_Center: {x: -6.749347e-10, y: -4.2023415e-10, z: 0.0074796425}
+--- !u!114 &6353486735796923884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3868372375851761367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fa66f927976244f8e6d7c241fa30e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chooseItem: 5

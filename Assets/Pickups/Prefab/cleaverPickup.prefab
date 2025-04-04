@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 363151826134792996}
   - component: {fileID: 1816653894956889759}
   - component: {fileID: 2524019793161543119}
+  - component: {fileID: 7173295567644739488}
   m_Layer: 8
   m_Name: cleaverPickup
   m_TagString: weapon
@@ -131,3 +132,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8911662, y: 0.5420171, z: 0.10500635}
   m_Center: {x: -0.42327392, y: 0.60449785, z: -0.00000002607703}
+--- !u!114 &7173295567644739488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6235406311448740047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0471bf1512b4344e8ce1e31b285493e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chooseWeapon: 1

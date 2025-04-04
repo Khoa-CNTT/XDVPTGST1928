@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5505070391790085286}
   - component: {fileID: 1482203123793803214}
   - component: {fileID: 3823338931900372914}
+  - component: {fileID: 4839127902530362061}
   m_Layer: 8
   m_Name: BatteryFL
   m_TagString: item
@@ -133,3 +134,16 @@ CapsuleCollider:
   m_Height: 0.43184495
   m_Direction: 1
   m_Center: {x: 0.000000027939677, y: 0.0023423508, z: -0.000000037252903}
+--- !u!114 &4839127902530362061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5558644835286534075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fa66f927976244f8e6d7c241fa30e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chooseItem: 8

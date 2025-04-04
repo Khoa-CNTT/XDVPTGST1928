@@ -446,6 +446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9150489133107071097}
   - component: {fileID: 95091916933165631}
+  - component: {fileID: 5401905496099853478}
   m_Layer: 8
   m_Name: shotgunPickup
   m_TagString: weapon
@@ -494,6 +495,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.105587445, y: 0.19826025, z: 1.0834066}
   m_Center: {x: -0.007973144, y: 0.0064843544, z: 0.42099118}
+--- !u!114 &5401905496099853478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873024228572773620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0471bf1512b4344e8ce1e31b285493e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chooseWeapon: 5
 --- !u!1 &8102705985662528207
 GameObject:
   m_ObjectHideFlags: 0
