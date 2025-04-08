@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7028829317927975963}
   - component: {fileID: 7777111769254417613}
   - component: {fileID: 3944033417079665408}
+  - component: {fileID: 4570633985055063059}
   m_Layer: 8
   m_Name: ShotgunAmmo
   m_TagString: ammo
@@ -131,3 +132,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 7.285999, y: 4.4853015, z: 3.9405}
   m_Center: {x: -50.160297, y: 38.013844, z: 18.82305}
+--- !u!114 &4570633985055063059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035855069540258868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c116fd336e58c9b4c863fb07e8c7ab3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chooseAmmo: 1

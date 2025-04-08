@@ -11,6 +11,8 @@ public class SaveScript : MonoBehaviour
     public static int[] weaponAmts = new int [8];
     public static int[] itemAmts = new int [13];
     public static bool change = false;
+    public static int[] ammoAmts = new int [2];
+
 
 
 
@@ -24,6 +26,8 @@ public class SaveScript : MonoBehaviour
         itemsPickedUp[1] = true;
         itemAmts[0] = 1;
         itemAmts[1] = 1;
+        ammoAmts[0] = 12;
+        ammoAmts[1] = 2;
 
         
     }

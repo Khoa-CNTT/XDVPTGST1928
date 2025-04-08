@@ -11,25 +11,33 @@ public class PickupsScript : MonoBehaviour
     public Image mainImage;
     public Sprite[] weaponIcons;
     public Sprite[] itemIcons;
+    public Sprite[] ammoIcons;
+    
     public Text mainTitle;
     public string[] weaponTitles;
     public string[] itemTitles;
+    public string[] ammoTitles;
 
 
     private int objID = 0;
 
     private AudioSource audioPlayer;
+
+    public GameObject doorMessageObj;
+    public Text doorMessage;
+    public AudioClip[] pickupSounds;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         pickupPanel.SetActive(false);
         audioPlayer = GetComponent<AudioSource>();
+        doorMessageObj.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Physics.SphereCast(transform.position, 0.5f, transform.forward, out hit, 30, ~excludeLayers))
+        if(Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 30, ~excludeLayers))
         {
             if(Vector3.Distance(transform.position, hit.transform.position) < pickupDisplayDistance)
             {
@@ -43,6 +51,7 @@ public class PickupsScript : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         SaveScript.weaponAmts[objID]++;
+                        audioPlayer.clip = pickupSounds[3];
                         audioPlayer.Play();
                         SaveScript.change = true;
                         Destroy(hit.transform.gameObject, 0.2f);
@@ -58,15 +67,66 @@ public class PickupsScript : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         SaveScript.itemAmts[objID]++;
+                        audioPlayer.clip = pickupSounds[3];
                         audioPlayer.Play();
                         SaveScript.change = true;
                         Destroy(hit.transform.gameObject, 0.2f);
+                    }
+                }
+                else if (hit.transform.gameObject.CompareTag("ammo"))
+                {
+                    pickupPanel.SetActive(true);
+                    objID = (int)hit.transform.gameObject.GetComponent<AmmoType>().chooseAmmo;
+                    mainImage.sprite = ammoIcons[objID];
+                    mainTitle.text = ammoTitles[objID];
+
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        SaveScript.ammoAmts[objID]++;
+                        audioPlayer.clip = pickupSounds[3];
+                        audioPlayer.Play();
+                        SaveScript.change = true;
+                        Destroy(hit.transform.gameObject, 0.2f);
+                    }
+                }
+                else if (hit.transform.gameObject.CompareTag("door"))
+                {
+                    
+                    objID = (int)hit.transform.gameObject.GetComponent<DoorType>().chooseDoor;
+                    if(hit.transform.gameObject.GetComponent<DoorType>().locked == true)
+                    {
+                        hit.transform.gameObject.GetComponent<DoorType>().message = "Locked. You need to use the " + hit.transform.gameObject.GetComponent<DoorType>().chooseDoor + " key";
+                    }
+                    
+                    doorMessageObj.SetActive(true);
+                    doorMessage.text = hit.transform.gameObject.GetComponent<DoorType>().message;
+                    if(Input.GetKeyDown(KeyCode.E) && hit.transform.gameObject.GetComponent<DoorType>().locked == false)
+                    {
+                        audioPlayer.clip = pickupSounds[objID];
+                        audioPlayer.Play();
+                        if(hit.transform.gameObject.GetComponent<DoorType>().opened == false)
+                        {
+                            hit.transform.gameObject.GetComponent<DoorType>().message = "Press E to close the door";
+                            hit.transform.gameObject.GetComponent<DoorType>().opened = true;
+                            hit.transform.gameObject.GetComponent<Animator>().SetTrigger("Open");
+                        }
+                        else if(hit.transform.gameObject.GetComponent<DoorType>().opened == true)
+                        {
+                            hit.transform.gameObject.GetComponent<DoorType>().message = "Press E to open the door";
+                            hit.transform.gameObject.GetComponent<DoorType>().opened = false;
+                            hit.transform.gameObject.GetComponent<Animator>().SetTrigger("Close");
+                        }
+                        
+                       
+                        
+                        
                     }
                 }
             }
             else
             {
                 pickupPanel.SetActive(false);
+                doorMessageObj.SetActive(false);
             }
         }
     }
