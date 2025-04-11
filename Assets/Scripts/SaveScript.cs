@@ -12,6 +12,7 @@ public class SaveScript : MonoBehaviour
     public static int[] itemAmts = new int [13];
     public static bool change = false;
     public static int[] ammoAmts = new int [2];
+    public static int[] currentAmmo = new int[9];
 
 
 
@@ -29,6 +30,11 @@ public class SaveScript : MonoBehaviour
         ammoAmts[0] = 12;
         ammoAmts[1] = 2;
 
+        for(int i =0; i<currentAmmo.Length; i++)
+        {
+            currentAmmo[i] = 2;
+        }
+        currentAmmo[4] = 12;
         
     }
 
