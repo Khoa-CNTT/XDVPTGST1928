@@ -35,6 +35,7 @@ public class SaveScript : MonoBehaviour
             currentAmmo[i] = 2;
         }
         currentAmmo[4] = 12;
+        currentAmmo[6] = 0;
         
     }
 

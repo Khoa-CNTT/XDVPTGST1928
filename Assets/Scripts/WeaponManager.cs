@@ -22,6 +22,9 @@ public class WeaponManager : MonoBehaviour
     private AudioSource audioPlayer;
     public AudioClip[] weaponSounds;
     private int currentWeaponID;
+    private bool spraySoundOn = false;
+    public GameObject sprayPanel;
+
 
 
     void Start()
@@ -63,6 +66,29 @@ public class WeaponManager : MonoBehaviour
                         audioPlayer.Play();
                     }
                 }
+            }
+        }
+        if(Input.GetMouseButton(0) && sprayPanel.GetComponent<SprayScripts>().sprayAmount > 0.0f)
+        {
+            if(SaveScript.weaponID == 6 && SaveScript.inventoryOpen == false)
+            {
+                if(spraySoundOn ==  false)
+                {
+                    spraySoundOn = true;
+                    anim.SetTrigger("Attack");
+                    StartCoroutine(StartSpraySound());
+
+                }
+            }
+        }
+        if(Input.GetMouseButtonUp(0) || sprayPanel.GetComponent<SprayScripts>().sprayAmount <= 0.0f)
+        {
+            if(SaveScript.weaponID == 6 && SaveScript.inventoryOpen == false)
+            {
+                anim.SetTrigger("Release");
+                spraySoundOn =  false;
+                audioPlayer.Stop();
+                audioPlayer.loop = false;
             }
         }
     }
@@ -118,5 +144,13 @@ public class WeaponManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         anim.SetBool("weaponChanged", false);
+    }
+
+    IEnumerator StartSpraySound()
+    {
+        yield return new WaitForSeconds(0.53f);
+        audioPlayer.clip = weaponSounds[SaveScript.weaponID];
+        audioPlayer.Play();
+        audioPlayer.loop = true;
     }
 }
