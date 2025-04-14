@@ -24,6 +24,8 @@ public class WeaponManager : MonoBehaviour
     private int currentWeaponID;
     private bool spraySoundOn = false;
     public GameObject sprayPanel;
+    public static bool emptyBottleThrow = false;
+    public static bool fireBottleThrow = false;
 
 
 
@@ -136,6 +138,24 @@ public class WeaponManager : MonoBehaviour
             case WeaponSelect.Bottle:
                 transform.localPosition = new Vector3 (0.02f, -0.193f, 0.66f);
                 break;
+        }
+    }
+
+    public void BottleThrowEmpty()
+    {
+        emptyBottleThrow = true;
+    }
+
+    public void BottleThrowFire()
+    {
+        fireBottleThrow = true;
+    }
+
+    public void LoadAnotherBottle()
+    {
+        if(SaveScript.weaponID == 7 || SaveScript.weaponID == 8)
+        {
+            ChangeWeapons();
         }
     }
 

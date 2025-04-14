@@ -22,6 +22,8 @@ public class BottleThrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(SaveScript.inventoryOpen == false)
+        {
         float HorizontalRotation = Input.GetAxis("Mouse X") * 2;
         float VerticalRotation = Input.GetAxis("Mouse Y") * 2;
 
@@ -69,13 +71,16 @@ public class BottleThrow : MonoBehaviour
             line.positionCount = 0;
         }
 
-        if(Input.GetMouseButtonDown(0))
+        
+
+        if(WeaponManager.emptyBottleThrow == true)
         {
-            if(SaveScript.weaponID == 7)
-            {
-                GameObject createBottle = Instantiate(bottleObj, throwPoint.position, throwPoint.rotation);
-                createBottle.GetComponentInChildren<Rigidbody>().linearVelocity  = throwPoint.transform.forward * throwPower;
-            }
+            WeaponManager.emptyBottleThrow = false;
+            GameObject createBottle = Instantiate(bottleObj, throwPoint.position, throwPoint.rotation);
+            createBottle.GetComponentInChildren<Rigidbody>().linearVelocity  = throwPoint.transform.forward * throwPower;
+            SaveScript.weaponAmts[7]--;
+            SaveScript.change = true;
+        }
         }
     }
 }

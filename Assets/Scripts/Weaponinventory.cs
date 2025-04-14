@@ -75,6 +75,11 @@ public class Weaponinventory : MonoBehaviour
         {
             combineItems[1].color = new Color(1,1,1,0.06f);
         }
+
+        if(SaveScript.weaponAmts[chosenWeaponNumber] <=0)
+        {
+            ChooseWeapon(0);
+        }
     }
 
     // Update is called once per frame
@@ -88,8 +93,11 @@ public class Weaponinventory : MonoBehaviour
         bigIcon.sprite = bigIcons[weaponnumber];
         title.text = titles[weaponnumber];
         description.text = descriptions[weaponnumber];
-        audioPlayer.clip = click;
-        audioPlayer.Play();
+        if(audioPlayer != null)
+        {
+            audioPlayer.clip = click;
+            audioPlayer.Play();
+        }
         chosenWeaponNumber = weaponnumber;
         amtsText.text = "Amounts: " + SaveScript.weaponAmts[weaponnumber];
 
