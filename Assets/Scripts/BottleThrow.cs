@@ -6,6 +6,7 @@ public class BottleThrow : MonoBehaviour
     public float rotationSpeed = 0.5f;
     public float throwPower = 40;
     public GameObject bottleObj;
+    public GameObject fireBottleObj;
     public Transform throwPoint;
 
     LineRenderer line;
@@ -22,7 +23,7 @@ public class BottleThrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(SaveScript.inventoryOpen == false)
+        if(SaveScript.inventoryOpen == false && SaveScript.weaponID > 6)
         {
         float HorizontalRotation = Input.GetAxis("Mouse X") * 2;
         float VerticalRotation = Input.GetAxis("Mouse Y") * 2;
@@ -51,18 +52,26 @@ public class BottleThrow : MonoBehaviour
 
         if(Input.GetMouseButton(1))
         {
-        for(float i = 0;  i < linePoints; i += pointDistance)
-        {
-            Vector3 newPoint = startPos + i * startVelocity;
-            newPoint.y = startPos.y + startVelocity.y + i + Physics.gravity.y / 2f * i * i;
-            points.Add(newPoint);
-
-            if(Physics.OverlapSphere(newPoint, 0.01f, collideLayer).Length > 0)
+            if(SaveScript.weaponID == 7)
             {
-                line.positionCount = points.Count;
-                break;
+                line.material = mBlue;
             }
-        }
+            if(SaveScript.weaponID == 8)
+            {
+                line.material = mRed;
+            }
+            for(float i = 0;  i < linePoints; i += pointDistance)
+            {
+                    Vector3 newPoint = startPos + i * startVelocity;
+                    newPoint.y = startPos.y + startVelocity.y + i + Physics.gravity.y / 2f * i * i;
+                    points.Add(newPoint);
+
+                    if(Physics.OverlapSphere(newPoint, 0.01f, collideLayer).Length > 0)
+                    {
+                        line.positionCount = points.Count;
+                        break;
+                    }
+            }
 
             line.SetPositions(points.ToArray());
         }
@@ -81,6 +90,17 @@ public class BottleThrow : MonoBehaviour
             SaveScript.weaponAmts[7]--;
             SaveScript.change = true;
         }
+
+        if(WeaponManager.fireBottleThrow == true)
+        {
+            WeaponManager.fireBottleThrow = false;
+            GameObject createBottle = Instantiate(fireBottleObj, throwPoint.position, throwPoint.rotation);
+            createBottle.GetComponentInChildren<Rigidbody>().linearVelocity  = throwPoint.transform.forward * throwPower;
+            SaveScript.weaponAmts[7]--;
+            SaveScript.itemAmts[3]--;
+            SaveScript.change = true;
+        }
+
         }
     }
 }

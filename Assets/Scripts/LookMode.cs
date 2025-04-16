@@ -10,6 +10,7 @@ public class LookMode : MonoBehaviour
     public GameObject flashLightOverlay;
     public GameObject inventoryMenu;
     public GameObject nightVisionOverlay;
+    public GameObject combinePanel;
     private Light flashLight;
     private bool nightVisionOn = false; 
     private bool flashLightOn = false; 
@@ -95,6 +96,7 @@ public class LookMode : MonoBehaviour
             else if (SaveScript.inventoryOpen == true)
             {
                 vol.profile = standard;
+                combinePanel.SetActive(false);
                 inventoryMenu.SetActive(false);
             }
         }

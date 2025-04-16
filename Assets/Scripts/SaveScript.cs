@@ -5,10 +5,10 @@ public class SaveScript : MonoBehaviour
 {
     public static bool inventoryOpen = false;
     public static int weaponID = 0;
-    public static bool[] weaponsPickedUp = new bool[8];
+    public static bool[] weaponsPickedUp = new bool[9];
     public static int itemID = 0;
     public static bool[] itemsPickedUp = new bool[13];
-    public static int[] weaponAmts = new int [8];
+    public static int[] weaponAmts = new int [9];
     public static int[] itemAmts = new int [13];
     public static bool change = false;
     public static int[] ammoAmts = new int [2];
@@ -20,6 +20,7 @@ public class SaveScript : MonoBehaviour
     void Start()
     {
         weaponsPickedUp[0] = true;
+        weaponAmts[0]=1;
         
 
 

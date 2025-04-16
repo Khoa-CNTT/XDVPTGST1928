@@ -11,6 +11,7 @@ public class WeaponType : MonoBehaviour
         Shotgun,
         SprayCan,
         Bottle,
+        BottleWithCloth
         
     }
     

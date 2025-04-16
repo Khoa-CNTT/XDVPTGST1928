@@ -28,7 +28,7 @@ public class Weaponinventory : MonoBehaviour
         bigIcon.sprite = bigIcons[0];
         title.text = titles[0];
         description.text = descriptions[0];
-
+        amtsText.text = "Amts: 1";
         combinePanel.SetActive(false);
         combineButton.SetActive(false);
         
@@ -80,7 +80,10 @@ public class Weaponinventory : MonoBehaviour
         {
             ChooseWeapon(0);
         }
+
+        ChooseWeapon(chosenWeaponNumber);
     }
+
 
     // Update is called once per frame
     void Update()

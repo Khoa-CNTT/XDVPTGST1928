@@ -27,6 +27,8 @@ public class WeaponManager : MonoBehaviour
     public static bool emptyBottleThrow = false;
     public static bool fireBottleThrow = false;
 
+    private AnimatorStateInfo animInfo;
+    private bool canAttack = true;
 
 
     void Start()
@@ -40,12 +42,21 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animInfo = anim.GetCurrentAnimatorStateInfo(0);
+        if (animInfo.IsTag("BottleThrown"))
+        {
+            canAttack = false;
+        }
+        else
+        {
+            canAttack = true;
+        }
         if(SaveScript.weaponID != currentWeaponID)
         {
             ChangeWeapons();
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && canAttack == true)
         {
             if(SaveScript.inventoryOpen == false)
             {
@@ -153,7 +164,15 @@ public class WeaponManager : MonoBehaviour
 
     public void LoadAnotherBottle()
     {
-        if(SaveScript.weaponID == 7 || SaveScript.weaponID == 8)
+        if(SaveScript.weaponID == 7)
+        {
+            ChangeWeapons();
+        }
+    }
+
+    public void LoadAnotherFireBottle()
+    {
+        if(SaveScript.weaponID == 8)
         {
             ChangeWeapons();
         }

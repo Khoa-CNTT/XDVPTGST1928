@@ -6,11 +6,18 @@ public class BottleSmash : MonoBehaviour
     private Rigidbody rb;
     private bool playSound = false;
     public GameObject bottleParent;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float destroyTime = 3f;
+
+    public bool flames = false;
+    public GameObject explosion;
+
+    
+
     void Start()
     {
         audioPlayer = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
+        Destroy(bottleParent, 20f);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -21,7 +28,13 @@ public class BottleSmash : MonoBehaviour
             audioPlayer.Play();
             
             rb.isKinematic = true;
-            Destroy(bottleParent, 2f);
-        }       
+            Destroy(bottleParent, destroyTime);
+        }    
+
+        if(flames == true)
+        {
+            Instantiate(explosion, this.transform.position, this.transform.rotation);
+            
+        }   
     }
 }
