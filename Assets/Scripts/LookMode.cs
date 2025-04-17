@@ -14,6 +14,7 @@ public class LookMode : MonoBehaviour
     private Light flashLight;
     private bool nightVisionOn = false; 
     private bool flashLightOn = false; 
+    public GameObject pointer;
     
 
     void Start()
@@ -109,6 +110,17 @@ public class LookMode : MonoBehaviour
         if(flashLightOn == true)
         {
             FlashLightOff();
+        }
+
+        if(SaveScript.inventoryOpen == true)
+        {
+            Cursor.visible = true;
+            pointer.SetActive(false);
+        }
+        else
+        {
+            Cursor.visible = false;
+            pointer.SetActive(true);
         }
 
     }

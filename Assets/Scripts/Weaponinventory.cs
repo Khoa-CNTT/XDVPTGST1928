@@ -20,6 +20,7 @@ public class Weaponinventory : MonoBehaviour
     public GameObject useButton, combineButton;
     public GameObject combinePanel, combineUseButton;
     public Image[] combineItems;
+    public GameObject sprayPanel;
 
     void Start()
     {
@@ -115,6 +116,15 @@ public class Weaponinventory : MonoBehaviour
             combinePanel.SetActive(false);
             combineButton.SetActive(false);
         }
+
+        if(chosenWeaponNumber == 6)
+        {
+            useButton.SetActive(false);
+        }
+        else
+        {
+            useButton.SetActive(true);
+        }
     }
 
 
@@ -155,6 +165,11 @@ public class Weaponinventory : MonoBehaviour
         if (chosenWeaponNumber == 6)
         {
             SaveScript.weaponID = chosenWeaponNumber;
+            if(sprayPanel.GetComponent<SprayScripts>().sprayAmount <= 0.0f)
+            {
+                sprayPanel.GetComponent<SprayScripts>().sprayAmount = 1.0f;
+            }
+            sprayPanel.GetComponent<SprayScripts>().sprayAmount = 1.0f;
         }
         if (chosenWeaponNumber == 7)
         {

@@ -29,7 +29,8 @@ public class WeaponManager : MonoBehaviour
 
     private AnimatorStateInfo animInfo;
     private bool canAttack = true;
-
+    private bool sprayEmpty = false;
+    private bool stopSpray = false;
 
     void Start()
     {
@@ -83,6 +84,8 @@ public class WeaponManager : MonoBehaviour
         }
         if(Input.GetMouseButton(0) && sprayPanel.GetComponent<SprayScripts>().sprayAmount > 0.0f)
         {
+            sprayEmpty = false;
+            stopSpray = false;
             if(SaveScript.weaponID == 6 && SaveScript.inventoryOpen == false)
             {
                 if(spraySoundOn ==  false)
@@ -96,12 +99,23 @@ public class WeaponManager : MonoBehaviour
         }
         if(Input.GetMouseButtonUp(0) || sprayPanel.GetComponent<SprayScripts>().sprayAmount <= 0.0f)
         {
-            if(SaveScript.weaponID == 6 && SaveScript.inventoryOpen == false)
+            
+            if(SaveScript.weaponID == 6 && SaveScript.inventoryOpen == false && stopSpray == false)
             {
+                stopSpray = true;
                 anim.SetTrigger("Release");
                 spraySoundOn =  false;
                 audioPlayer.Stop();
                 audioPlayer.loop = false;
+            }
+        }
+        if(sprayPanel.GetComponent<SprayScripts>().sprayAmount <= 0.0f && sprayEmpty == false)
+        {
+            sprayEmpty = true;
+            SaveScript.weaponAmts[6]--;
+            if(SaveScript.weaponAmts[6] == 0)
+            {
+                SaveScript.weaponsPickedUp[6] = false;
             }
         }
     }
