@@ -12,7 +12,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
     public class FirstPersonController : MonoBehaviour
     {
         public static bool inventorySwitchedOn = false;
-
+        public static float FPSstamina = 100;
+        private float runSpeedAmt;
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
@@ -50,6 +51,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Use this for initialization
         private void Start()
         {
+            runSpeedAmt = m_RunSpeed;
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -77,6 +79,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     inventorySwitchedOn = false;
                 }
             }
+
+            if(FPSstamina < 20)
+            {
+                m_RunSpeed = m_WalkSpeed;
+            }
+            else
+            {
+                m_RunSpeed = runSpeedAmt;
+            }
+
             if(inventorySwitchedOn == false)
             {
             RotateView();
