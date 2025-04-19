@@ -16,6 +16,7 @@ public class SaveScript : MonoBehaviour
     public static float stamina;
     public static float infection;
     public static int health; 
+    public static GameObject doorObject;
 
 
 
@@ -65,6 +66,10 @@ public class SaveScript : MonoBehaviour
         {
             FirstPersonController.FPSstamina += 3.35f * Time.deltaTime;
             stamina = FirstPersonController.FPSstamina;
+        }
+        if(stamina >= 100)
+        {
+            FirstPersonController.FPSstamina = stamina;
         }
         if(infection < 50)
         {

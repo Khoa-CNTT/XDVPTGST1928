@@ -17,6 +17,19 @@ public class ItemsInventory : MonoBehaviour
     private AudioSource audioPlayer;
     public AudioClip click, select;
     private int chosenItemNumber;
+
+    private int updateHealth;
+    private float updateStamina;
+    private float updateInfection;
+    
+    private bool addHealth = false;
+    private bool addStamina = false;
+    private bool reduceInfection = false;
+
+    public GameObject flashlightPanel, nightvisionPanel;
+    private bool flashlightRefill = false; 
+    private bool nightvisionRefill = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -43,6 +56,12 @@ public class ItemsInventory : MonoBehaviour
                 itemButtons[i].image.raycastTarget = true;
             }
         }
+
+        if(SaveScript.itemAmts[chosenItemNumber] <= 0)
+        {
+            ChooseItem(0);
+        }
+        ChooseItem(chosenItemNumber);
     }
 
     // Update is called once per frame
@@ -56,8 +75,12 @@ public class ItemsInventory : MonoBehaviour
         bigIcon.sprite = bigIcons[itemNumber];
         title.text = titles[itemNumber];
         description.text = descriptions[itemNumber];
-        audioPlayer.clip = click;
-        audioPlayer.Play();
+        if(audioPlayer != null)
+        {
+            audioPlayer.clip = click;
+            audioPlayer.Play();
+        }
+        
         chosenItemNumber = itemNumber;
         amtsText.text = "Amounts: " + SaveScript.itemAmts[itemNumber];
 
@@ -69,6 +92,43 @@ public class ItemsInventory : MonoBehaviour
         {
             useButton.SetActive(true);
         }
+        if(itemNumber != 8)
+        {
+            flashlightRefill = false;
+        }
+        if(itemNumber != 9)
+        {
+            nightvisionRefill = false;
+        }
+    }
+
+
+    public void AddHealth(int healthUpdate)
+    {
+        updateHealth = healthUpdate;
+        addHealth = true;
+    }
+
+    public void AddStamina(int staminaUpdate)
+    {
+        updateStamina = staminaUpdate;
+        addStamina = true;
+    }
+
+    public void ReduceInfection(int infectionUpdate)
+    {
+        updateInfection = infectionUpdate;
+        reduceInfection = true;
+    }
+
+    public void FillFLBattery()
+    {
+        flashlightRefill = true;
+    }
+
+    public void FillNVBattery()
+    {
+        nightvisionRefill = true;
     }
 
     public void AssignItem()
@@ -76,6 +136,97 @@ public class ItemsInventory : MonoBehaviour
         SaveScript.itemID = chosenItemNumber;
         audioPlayer.clip = select;
         audioPlayer.Play();
+
+        if(chosenItemNumber != 10 && chosenItemNumber != 11)
+        {
+            SaveScript.itemAmts[chosenItemNumber]--;
+            ChooseItem(chosenItemNumber);
+
+            if(SaveScript.itemAmts[chosenItemNumber] == 0)
+            {
+                SaveScript.itemsPickedUp[chosenItemNumber] = false;
+                useButton.SetActive(false);
+            }
+        }
+        
+
+        if(addHealth == true)
+        {
+            addHealth = false;
+            if(SaveScript.health < 100)
+            {
+                SaveScript.health += updateHealth;
+            }
+            if(SaveScript.health > 100)
+            {
+                SaveScript.health = 100;
+            }
+        }
+
+        if(addStamina==true)
+        {
+            addStamina = false;
+            if(SaveScript.health < 100)
+            {
+                SaveScript.health += updateHealth;
+            }
+            if(SaveScript.health > 100)
+            {
+                SaveScript.health = 100;
+            }
+        }
+        
+        if(reduceInfection == true)
+        {
+            reduceInfection = false;
+            if(SaveScript.infection > 0.0f)
+            {
+                SaveScript.infection -= updateInfection;
+            }
+            if(SaveScript.infection < 0.0f)
+            {
+                SaveScript.infection = 0.0f;
+            }
+        }
+
+        if(flashlightRefill == true)
+        {
+            flashlightRefill = false;
+            flashlightPanel.GetComponent<FlashLightScript>().batteryPower = 1.0f;
+        }
+        
+        if(nightvisionRefill == true) 
+        {
+            nightvisionRefill = false;
+            nightvisionPanel.GetComponent<NightVision>().batteryPower = 1.0f;
+        }
+
+        if(chosenItemNumber == 10)
+        {
+            if(SaveScript.doorObject != null)
+            {
+                if((int)SaveScript.doorObject.GetComponent<DoorType>().chooseDoor == 1)
+                {
+                    if(SaveScript.doorObject.GetComponent<DoorType>().locked == true)
+                    {
+                        SaveScript.doorObject.GetComponent<DoorType>().locked = false;
+                    }
+                }
+            }
+        }
+        if(chosenItemNumber == 11)
+        {
+            if(SaveScript.doorObject != null)
+            {
+                if((int)SaveScript.doorObject.GetComponent<DoorType>().chooseDoor == 2)
+                {
+                    if(SaveScript.doorObject.GetComponent<DoorType>().locked == true)
+                    {
+                        SaveScript.doorObject.GetComponent<DoorType>().locked = false;
+                    }
+                }
+            }
+        }
     }
 
 }
