@@ -9,6 +9,7 @@ TagManager:
   - item
   - ammo
   - door
+  - Target
   layers:
   - Default
   - TransparentFX
