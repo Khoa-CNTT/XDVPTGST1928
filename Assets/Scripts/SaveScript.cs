@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -17,6 +18,8 @@ public class SaveScript : MonoBehaviour
     public static float infection;
     public static int health; 
     public static GameObject doorObject;
+
+    public static List<GameObject> zombiesChasing = new List<GameObject>();
 
 
 

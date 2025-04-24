@@ -32,12 +32,26 @@ public class ZombieScript : MonoBehaviour
     private float[] walkSpeed = {0.15f, 1.0f, 0.75f};
     private float distanceToTarget;
     private int currentTarget = 0;
+    private float distanceToPlayer;
+    private GameObject player;
+    public float zombieAlertRange = 20f;
+    private bool awareOfPlayer = false;
+    private bool adding = true;
+    private AudioSource chaseMusicPlayer;
+    private float attackDistance = 2f;
+    private float rotateSpeed = 2f;
+
 
     void Start()
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         targets = GameObject.FindGameObjectsWithTag("Target");
+        player = GameObject.Find("FPSController");
+        chaseMusicPlayer = GameObject.Find("ChaseMusic").GetComponent<AudioSource>();
+        zombieAlertRange = Random.Range(5.1f, 35f);
+
+
         anim.SetLayerWeight(((int)zombieStyle + 1), 1);
         if(zombieStyle == ZombieType.shuffle)
         {
@@ -56,8 +70,73 @@ public class ZombieScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        if(distanceToPlayer <= attackDistance)
+        {
+            agent.isStopped = true;
+            anim.SetBool("attacking", true);
+
+            Vector3 pos =(player.transform.position - transform.position).normalized;
+            Quaternion posRotation = Quaternion.LookRotation(new Vector3(pos.x, 0, pos.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, posRotation, rotateSpeed * Time.deltaTime);
+        }
+        else
+        {
+            anim.SetBool("attacking", false);
+        if(SaveScript.zombiesChasing.Count > 0)
+        {
+            if(chaseMusicPlayer.volume < 0.8f)
+            {
+                
+                if(chaseMusicPlayer.isPlaying == false)
+                {
+                    chaseMusicPlayer.Play();
+                }
+                chaseMusicPlayer.volume += 0.2f * Time.deltaTime;
+            }
+        }
+        if(SaveScript.zombiesChasing.Count == 0)
+        {
+            if(chaseMusicPlayer.volume > 0.0f)
+            {
+                chaseMusicPlayer.volume -= 0.2f * Time.deltaTime;
+            }
+            if(chaseMusicPlayer.volume == 0.0f)
+            {
+                chaseMusicPlayer.Stop();
+            }
+        }
+       
         distanceToTarget = Vector3.Distance(transform.position, targets[currentTarget].transform.position);
         animInfo = anim.GetCurrentAnimatorStateInfo((int)zombieStyle);
+
+        if(distanceToPlayer < zombieAlertRange && chooseState == ZombieState.Walking)
+        {
+            agent.destination = player.transform.position;
+            awareOfPlayer = true;
+            if(adding == true)
+            {
+                if(SaveScript.zombiesChasing.Contains(this.gameObject))
+                {
+                    adding = false;
+                    return;
+                }
+                else
+                {
+                    SaveScript.zombiesChasing.Add(this.gameObject);
+                    adding = false;
+                }
+            }
+        }
+        if(distanceToPlayer > zombieAlertRange)
+        {
+            awareOfPlayer = false;
+            if(SaveScript.zombiesChasing.Contains(this.gameObject))
+            {
+                SaveScript.zombiesChasing.Remove(this.gameObject);
+                adding = true;
+            }
+        }
 
         if(animInfo.IsTag("motion"))
         {
@@ -78,18 +157,23 @@ public class ZombieScript : MonoBehaviour
                 }
             }
         }
+        }
         
     }
 
     void SetAnimState()
     {
-        newState = Random.Range(0, 3);
+        if(awareOfPlayer== false)
+        {
+            newState = Random.Range(0, 3);
         if(newState != currentState)
         {
             chooseState = (ZombieState)newState;
             currentState = (int)chooseState;
             anim.SetTrigger(chooseState.ToString());
         }
+        }
+        
     }
     
     public void WalkOn()
