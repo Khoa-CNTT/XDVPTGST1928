@@ -39,13 +39,15 @@ public class ZombieScript : MonoBehaviour
     private bool adding = true;
     private AudioSource chaseMusicPlayer;
     private float attackDistance = 2f;
-    private float rotateSpeed = 2f;
+    private float rotateSpeed = 2.5f;
+    private AudioSource zombieSound;
 
 
     void Start()
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        zombieSound = GetComponent<AudioSource>();
         targets = GameObject.FindGameObjectsWithTag("Target");
         player = GameObject.Find("FPSController");
         chaseMusicPlayer = GameObject.Find("ChaseMusic").GetComponent<AudioSource>();
@@ -85,7 +87,7 @@ public class ZombieScript : MonoBehaviour
             anim.SetBool("attacking", false);
         if(SaveScript.zombiesChasing.Count > 0)
         {
-            if(chaseMusicPlayer.volume < 0.8f)
+            if(chaseMusicPlayer.volume < 0.4f)
             {
                 
                 if(chaseMusicPlayer.isPlaying == false)
@@ -173,6 +175,7 @@ public class ZombieScript : MonoBehaviour
             anim.SetTrigger(chooseState.ToString());
         }
         }
+        zombieSound.Play();
         
     }
     
