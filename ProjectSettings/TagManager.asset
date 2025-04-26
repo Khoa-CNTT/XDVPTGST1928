@@ -10,6 +10,10 @@ TagManager:
   - ammo
   - door
   - Target
+  - knife
+  - cleaver
+  - bat
+  - axe
   layers:
   - Default
   - TransparentFX

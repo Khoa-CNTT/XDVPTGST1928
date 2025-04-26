@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -43,6 +44,8 @@ public class ZombieScript : MonoBehaviour
     private AudioSource zombieSound;
 
 
+
+    private float gunAlertRange = 100;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -72,6 +75,8 @@ public class ZombieScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(anim.GetBool("isDead") == false)
+        {
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
         if(distanceToPlayer <= attackDistance)
         {
@@ -160,7 +165,38 @@ public class ZombieScript : MonoBehaviour
             }
         }
         }
-        
+        }
+        else
+        {
+            if(SaveScript.zombiesChasing.Contains(this.gameObject))
+            {
+                SaveScript.zombiesChasing.Remove(this.gameObject);
+                adding = true;
+            }
+            
+            if(SaveScript.zombiesChasing.Count == 0)
+            {
+            if(chaseMusicPlayer.volume > 0.0f)
+            {
+                chaseMusicPlayer.volume -= 0.5f * Time.deltaTime;
+            }
+            if(chaseMusicPlayer.volume == 0.0f)
+            {
+                chaseMusicPlayer.Stop();
+            }
+            }
+            CancelInvoke();
+            Destroy(gameObject,20);
+        }
+
+        if(SaveScript.gunUsed == true)
+        {
+            zombieAlertRange = gunAlertRange;
+            StartCoroutine(ResetRange());
+        }else
+        {
+            zombieAlertRange = 20;
+        }
     }
 
     void SetAnimState()
@@ -189,7 +225,11 @@ public class ZombieScript : MonoBehaviour
         agent.isStopped = true;
     }
 
-    
+    IEnumerator ResetRange()
+    {
+        yield return new WaitForSeconds(10f);
+        SaveScript.gunUsed = false;
+    }
     
 
 }

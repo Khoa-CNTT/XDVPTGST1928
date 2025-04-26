@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityStandardAssets.Characters.FirstPerson;
 
 public class SaveScript : MonoBehaviour
@@ -18,6 +19,8 @@ public class SaveScript : MonoBehaviour
     public static float infection;
     public static int health; 
     public static GameObject doorObject;
+
+    public static bool gunUsed = false;
 
     public static List<GameObject> zombiesChasing = new List<GameObject>();
 
@@ -65,6 +68,7 @@ public class SaveScript : MonoBehaviour
             FirstPersonController.FPSstamina -= 10 * Time.deltaTime;
             stamina = FirstPersonController.FPSstamina;
         }
+
         if(stamina < 100)
         {
             FirstPersonController.FPSstamina += 3.35f * Time.deltaTime;
@@ -74,6 +78,12 @@ public class SaveScript : MonoBehaviour
         {
             FirstPersonController.FPSstamina = stamina;
         }
+        if(Input.GetMouseButtonDown(0) && stamina > 20 && weaponID < 4 && inventoryOpen == false)
+        {
+            FirstPersonController.FPSstamina -= 10;
+            stamina = FirstPersonController.FPSstamina;
+        }
+
         if(infection < 50)
         {
             infection += 0.1f * Time.deltaTime;

@@ -166,13 +166,13 @@ public class ItemsInventory : MonoBehaviour
         if(addStamina==true)
         {
             addStamina = false;
-            if(SaveScript.health < 100)
+            if(SaveScript.stamina < 100)
             {
-                SaveScript.health += updateHealth;
+                SaveScript.stamina += updateStamina;
             }
-            if(SaveScript.health > 100)
+            if(SaveScript.stamina > 100)
             {
-                SaveScript.health = 100;
+                SaveScript.stamina = 100;
             }
         }
         

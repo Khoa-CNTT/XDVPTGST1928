@@ -57,11 +57,11 @@ public class WeaponManager : MonoBehaviour
             ChangeWeapons();
         }
 
-        if(Input.GetMouseButtonDown(0) && canAttack == true)
+        if(Input.GetMouseButtonDown(0) && canAttack == true )
         {
             if(SaveScript.inventoryOpen == false)
             {
-                if(SaveScript.currentAmmo[SaveScript.weaponID] > 0)
+                if(SaveScript.currentAmmo[SaveScript.weaponID] > 0 && SaveScript.stamina > 20)
                 {
                     anim.SetTrigger("Attack");
                     audioPlayer.clip = weaponSounds[SaveScript.weaponID];
@@ -70,6 +70,7 @@ public class WeaponManager : MonoBehaviour
                     if(SaveScript.weaponID == 4 || SaveScript.weaponID == 5)
                     {
                         SaveScript.currentAmmo[SaveScript.weaponID]--;
+                        SaveScript.gunUsed = true;
                     }
                 }
                 else
