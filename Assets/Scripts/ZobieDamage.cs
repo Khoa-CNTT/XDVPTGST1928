@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ZobieDamage : MonoBehaviour
@@ -12,6 +14,8 @@ public class ZobieDamage : MonoBehaviour
     public string[] weaponTag;
     public int[] damageAmts;
     public AudioClip[] damageSounds;
+
+    private bool flameDeath = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -51,6 +55,7 @@ public class ZobieDamage : MonoBehaviour
                     
                     Vector3 pos = other.ClosestPoint(transform.position);
                     Instantiate(bloodSplat, pos, other.transform.rotation);
+                    this.transform.gameObject.GetComponentInParent<ZombieScript>().isAngry = true;
                     damagePlayer.clip = damageSounds[i];
                     damagePlayer.Play();
 
@@ -76,6 +81,27 @@ public class ZobieDamage : MonoBehaviour
             Instantiate(bloodSplat, hitPoint, this.transform.rotation);
             death = true;
             zombieAnim.SetTrigger("dead");
+            zombieAnim.SetBool("isDead", true);
+        }
+    }
+
+    public void FlameDeath()
+    {
+        if(flameDeath == false)
+        {
+            flameDeath = true;
+            StartCoroutine(ZombieFireWalk());
+        }
+    }
+
+    IEnumerator ZombieFireWalk()
+    {
+        yield return new WaitForSeconds(5);
+        if(death == false)
+        {
+            
+            death = true;
+            zombieAnim.SetTrigger("fireDie");
             zombieAnim.SetBool("isDead", true);
         }
     }

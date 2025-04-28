@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +22,9 @@ public class SaveScript : MonoBehaviour
     public static GameObject doorObject;
 
     public static bool gunUsed = false;
+    public static Vector3 bottlePos = new Vector3(0, 0,0);
+    private bool hasSmashed = false;
+
 
     public static List<GameObject> zombiesChasing = new List<GameObject>();
 
@@ -119,7 +123,22 @@ public class SaveScript : MonoBehaviour
             }
         }
     }
+    if(bottlePos != Vector3.zero)
+    {
+        if(hasSmashed == false)
+        {
+            StartCoroutine(ResetBottlePos());
+            hasSmashed = true;
+
+        }
+    }
     }
 
     
+    IEnumerator ResetBottlePos()
+    {
+        yield return new WaitForSeconds(10);
+        bottlePos = Vector3.zero;
+        hasSmashed = false;
+    }
 }

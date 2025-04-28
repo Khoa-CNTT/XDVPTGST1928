@@ -28,6 +28,7 @@ public class BottleSmash : MonoBehaviour
             audioPlayer.Play();
             
             rb.isKinematic = true;
+            SaveScript.bottlePos = this.transform.position;
             Destroy(bottleParent, destroyTime);
         }    
 

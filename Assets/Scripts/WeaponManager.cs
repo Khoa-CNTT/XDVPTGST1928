@@ -3,7 +3,8 @@ using System.Collections;
 
 public class WeaponManager : MonoBehaviour
 {
-    public enum WeaponSelect{
+    public enum WeaponSelect
+    {
         Knife,
         Cleaver,
         Bat,
@@ -14,9 +15,9 @@ public class WeaponManager : MonoBehaviour
         Bottle,
         BottleWithCloth
     }
-    
+
     public WeaponSelect chosenWeapon;
-    public GameObject [] weapons;
+    public GameObject[] weapons;
     //private int weaponID = 0;
     private Animator anim;
     private AudioSource audioPlayer;
@@ -31,7 +32,7 @@ public class WeaponManager : MonoBehaviour
     private bool canAttack = true;
     private bool sprayEmpty = false;
     private bool stopSpray = false;
-
+    public AudioClip[] reloadSounds;
     void Start()
     {
         SaveScript.weaponID = (int)chosenWeapon;
@@ -52,22 +53,22 @@ public class WeaponManager : MonoBehaviour
         {
             canAttack = true;
         }
-        if(SaveScript.weaponID != currentWeaponID)
+        if (SaveScript.weaponID != currentWeaponID)
         {
             ChangeWeapons();
         }
 
-        if(Input.GetMouseButtonDown(0) && canAttack == true )
+        if (Input.GetMouseButtonDown(0) && canAttack == true)
         {
-            if(SaveScript.inventoryOpen == false)
+            if (SaveScript.inventoryOpen == false)
             {
-                if(SaveScript.currentAmmo[SaveScript.weaponID] > 0 && SaveScript.stamina > 20)
+                if (SaveScript.currentAmmo[SaveScript.weaponID] > 0 && SaveScript.stamina > 20)
                 {
                     anim.SetTrigger("Attack");
                     audioPlayer.clip = weaponSounds[SaveScript.weaponID];
                     audioPlayer.Play();
 
-                    if(SaveScript.weaponID == 4 || SaveScript.weaponID == 5)
+                    if (SaveScript.weaponID == 4 || SaveScript.weaponID == 5)
                     {
                         SaveScript.currentAmmo[SaveScript.weaponID]--;
                         SaveScript.gunUsed = true;
@@ -75,7 +76,7 @@ public class WeaponManager : MonoBehaviour
                 }
                 else
                 {
-                    if(SaveScript.weaponID == 4 || SaveScript.weaponID == 5)
+                    if (SaveScript.weaponID == 4 || SaveScript.weaponID == 5)
                     {
                         audioPlayer.clip = weaponSounds[9];
                         audioPlayer.Play();
@@ -83,13 +84,13 @@ public class WeaponManager : MonoBehaviour
                 }
             }
         }
-        if(Input.GetMouseButton(0) && sprayPanel.GetComponent<SprayScripts>().sprayAmount > 0.0f)
+        if (Input.GetMouseButton(0) && sprayPanel.GetComponent<SprayScripts>().sprayAmount > 0.0f)
         {
             sprayEmpty = false;
             stopSpray = false;
-            if(SaveScript.weaponID == 6 && SaveScript.inventoryOpen == false)
+            if (SaveScript.weaponID == 6 && SaveScript.inventoryOpen == false)
             {
-                if(spraySoundOn ==  false)
+                if (spraySoundOn == false)
                 {
                     spraySoundOn = true;
                     anim.SetTrigger("Attack");
@@ -98,30 +99,49 @@ public class WeaponManager : MonoBehaviour
                 }
             }
         }
-        if(Input.GetMouseButtonUp(0) || sprayPanel.GetComponent<SprayScripts>().sprayAmount <= 0.0f)
+        if (Input.GetMouseButtonUp(0) || sprayPanel.GetComponent<SprayScripts>().sprayAmount <= 0.0f)
         {
-            
-            if(SaveScript.weaponID == 6 && SaveScript.inventoryOpen == false && stopSpray == false)
+
+            if (SaveScript.weaponID == 6 && SaveScript.inventoryOpen == false && stopSpray == false)
             {
                 stopSpray = true;
                 anim.SetTrigger("Release");
-                spraySoundOn =  false;
+                spraySoundOn = false;
                 audioPlayer.Stop();
                 audioPlayer.loop = false;
             }
         }
-        if(sprayPanel.GetComponent<SprayScripts>().sprayAmount <= 0.0f && sprayEmpty == false)
+        if (sprayPanel.GetComponent<SprayScripts>().sprayAmount <= 0.0f && sprayEmpty == false)
         {
             sprayEmpty = true;
             SaveScript.weaponAmts[6]--;
-            if(SaveScript.weaponAmts[6] == 0)
+            if (SaveScript.weaponAmts[6] == 0)
             {
                 SaveScript.weaponsPickedUp[6] = false;
             }
         }
+
+
+        if (SaveScript.weaponID == 4 || SaveScript.weaponID == 5)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                if (SaveScript.ammoAmts[SaveScript.weaponID - 4] > 0)
+                {
+
+                    SaveScript.currentAmmo[SaveScript.weaponID] += SaveScript.ammoAmts[SaveScript.weaponID - 4];
+                    SaveScript.ammoAmts[SaveScript.weaponID - 4] = 0;
+                    anim.SetTrigger("Reload");
+                    audioPlayer.clip = reloadSounds[SaveScript.weaponID - 4];
+                    audioPlayer.Play();
+                }
+            }
+        }
+
     }
 
-    private void ChangeWeapons(){
+    private void ChangeWeapons()
+    {
         foreach (GameObject weapon in weapons)
         {
             weapon.SetActive(false);
@@ -141,28 +161,28 @@ public class WeaponManager : MonoBehaviour
         switch (chosenWeapon)
         {
             case WeaponSelect.Knife:
-                transform.localPosition = new Vector3 (0.02f, -0.193f, 0.66f);
+                transform.localPosition = new Vector3(0.02f, -0.193f, 0.66f);
                 break;
             case WeaponSelect.Cleaver:
-                transform.localPosition = new Vector3 (0.02f, -0.193f, 0.66f);
+                transform.localPosition = new Vector3(0.02f, -0.193f, 0.66f);
                 break;
             case WeaponSelect.Bat:
-                transform.localPosition = new Vector3 (0.02f, -0.193f, 0.66f);
+                transform.localPosition = new Vector3(0.02f, -0.193f, 0.66f);
                 break;
             case WeaponSelect.Axe:
-                transform.localPosition = new Vector3 (0.02f, -0.193f, 0.66f);
+                transform.localPosition = new Vector3(0.02f, -0.193f, 0.66f);
                 break;
             case WeaponSelect.Pistol:
-                transform.localPosition = new Vector3 (0.02f, -0.193f, 0.66f);
+                transform.localPosition = new Vector3(0.02f, -0.193f, 0.66f);
                 break;
             case WeaponSelect.Shotgun:
-                transform.localPosition = new Vector3 (0.02f, -0.193f, 0.46f);
+                transform.localPosition = new Vector3(0.02f, -0.193f, 0.46f);
                 break;
             case WeaponSelect.SprayCan:
-                transform.localPosition = new Vector3 (0.02f, -0.193f, 0.66f);
+                transform.localPosition = new Vector3(0.02f, -0.193f, 0.66f);
                 break;
             case WeaponSelect.Bottle:
-                transform.localPosition = new Vector3 (0.02f, -0.193f, 0.66f);
+                transform.localPosition = new Vector3(0.02f, -0.193f, 0.66f);
                 break;
         }
     }
@@ -179,7 +199,7 @@ public class WeaponManager : MonoBehaviour
 
     public void LoadAnotherBottle()
     {
-        if(SaveScript.weaponID == 7)
+        if (SaveScript.weaponID == 7)
         {
             ChangeWeapons();
         }
@@ -187,7 +207,7 @@ public class WeaponManager : MonoBehaviour
 
     public void LoadAnotherFireBottle()
     {
-        if(SaveScript.weaponID == 8)
+        if (SaveScript.weaponID == 8)
         {
             ChangeWeapons();
         }

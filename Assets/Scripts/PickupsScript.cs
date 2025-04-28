@@ -85,7 +85,15 @@ public class PickupsScript : MonoBehaviour
 
                     if(Input.GetKeyDown(KeyCode.E))
                     {
-                        SaveScript.ammoAmts[objID]++;
+                        if(objID == 0)
+                        {
+                            SaveScript.ammoAmts[0] += 12;
+                        }
+                        if(objID == 1)
+                        {
+                            SaveScript.ammoAmts[1] += 8;
+                        }
+                        
                         audioPlayer.clip = pickupSounds[3];
                         audioPlayer.Play();
                         SaveScript.change = true;
