@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 using UnityStandardAssets.Characters.FirstPerson;
 
 public class SaveScript : MonoBehaviour
@@ -23,10 +23,12 @@ public class SaveScript : MonoBehaviour
 
     public static bool gunUsed = false;
     public static Vector3 bottlePos = new Vector3(0, 0,0);
+    public static bool isHidden = false;
     private bool hasSmashed = false;
 
 
     public static List<GameObject> zombiesChasing = new List<GameObject>();
+    public static int zombiesInGame = 0;
 
 
 
@@ -59,6 +61,10 @@ public class SaveScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(zombiesInGame < 0)
+        {
+            zombiesInGame = 0;
+        }
         if(FirstPersonController.inventorySwitchedOn == true)
         {
             inventoryOpen = true;
@@ -85,6 +91,12 @@ public class SaveScript : MonoBehaviour
         if(Input.GetMouseButtonDown(0) && stamina > 20 && weaponID < 4 && inventoryOpen == false)
         {
             FirstPersonController.FPSstamina -= 10;
+            stamina = FirstPersonController.FPSstamina;
+        }
+
+        if(Input.GetKey(KeyCode.C))
+        {
+            FirstPersonController.FPSstamina -= 10f * Time.deltaTime;
             stamina = FirstPersonController.FPSstamina;
         }
 
