@@ -17,7 +17,7 @@ public class ZombieSpawnPatrol : MonoBehaviour
 
     private void Start()
     {
-        if(houseSpawn == true)
+        if (houseSpawn == true)
         {
             canSpawn = false;
         }
@@ -38,22 +38,46 @@ public class ZombieSpawnPatrol : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && canSpawn == true && SaveScript.zombiesInGame < 100)
+        if (other.CompareTag("Player") && canSpawn == true && SaveScript.zombiesInGame < 100 - zombieSpawnAmt)
         {
+            SpawnZombies();
+        }
+        if (other.CompareTag("Player") && canSpawn == true && SaveScript.zombiesInGame >= 100 - zombieSpawnAmt)
+        {
+            GameObject[] zombiesToDestroy = GameObject.FindGameObjectsWithTag("zombie");
             for (int i = 0; i < zombieSpawnAmt; i++)
             {
-                if(houseSpawn == false)
+                if (zombiesToDestroy.Length >= zombieSpawnAmt)
                 {
-                    Instantiate(zombies[Random.Range(0, zombies.Length)],spawnPoints[Random.Range(0, spawnPoints.Length)].position,spawnPoints[Random.Range(0, spawnPoints.Length)].rotation);
+                    float furthestDistance = Vector3.Distance(transform.position, zombiesToDestroy[i].transform.position);
+                    if (furthestDistance > 30)
+                    {
+                        Destroy(zombiesToDestroy[i]);
+
+
+                    }
                 }
-                else
-                {
-                    Instantiate(zombies[Random.Range(0, zombies.Length)],spawnPoints[i].position,spawnPoints[i].rotation);
-                }
-                
-                SaveScript.zombiesInGame++;
             }
-            canSpawn = false;
+            SpawnZombies();
         }
+    }
+
+    void SpawnZombies()
+    {
+        for (int i = 0; i < zombieSpawnAmt; i++)
+        {
+            if (houseSpawn == false)
+            {
+                int spawnRandom = Random.Range(0, spawnPoints.Length);
+                Instantiate(zombies[Random.Range(0, zombies.Length)], new Vector3(spawnPoints[spawnRandom].position.x - Random.Range(0, 10), spawnPoints[spawnRandom].position.y, spawnPoints[spawnRandom].position.z - Random.Range(0, 5)), spawnPoints[spawnRandom].rotation);
+            }
+            else
+            {
+                Instantiate(zombies[Random.Range(0, zombies.Length)], spawnPoints[i].position, spawnPoints[i].rotation);
+            }
+
+            SaveScript.zombiesInGame++;
+        }
+        canSpawn = false;
     }
 }

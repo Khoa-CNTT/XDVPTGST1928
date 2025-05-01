@@ -30,6 +30,8 @@ public class SaveScript : MonoBehaviour
     public static List<GameObject> zombiesChasing = new List<GameObject>();
     public static int zombiesInGame = 0;
 
+    private GameObject[] zombies;
+
 
 
 
@@ -61,6 +63,18 @@ public class SaveScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(zombiesInGame > 100)
+        {
+            zombies = GameObject.FindGameObjectsWithTag("zombie"); 
+            for(int i = 100; i < zombies.Length; i++)
+            {
+                Destroy(zombies[i]);
+            }
+        }
+
+        
+
         if(zombiesInGame < 0)
         {
             zombiesInGame = 0;

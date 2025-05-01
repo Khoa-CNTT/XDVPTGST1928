@@ -45,11 +45,12 @@ public class ZombieScript : MonoBehaviour
 
 
 
-    private float gunAlertRange = 100;
+    private float gunAlertRange = 400;
     public bool isAngry = false;
 
     private float hiddenRange = 2;
     public bool startInHouse = false;
+    private float alertSpeed;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -58,7 +59,7 @@ public class ZombieScript : MonoBehaviour
         targets = GameObject.FindGameObjectsWithTag("Target");
         player = GameObject.Find("FPSController");
         chaseMusicPlayer = GameObject.Find("ChaseMusic").GetComponent<AudioSource>();
-        zombieAlertRange = Random.Range(5.1f, 35f);
+        zombieAlertRange = Random.Range(50f, 200f);
 
 
         anim.SetLayerWeight(((int)zombieStyle + 1), 1);
@@ -74,6 +75,8 @@ public class ZombieScript : MonoBehaviour
         }
         agent.destination = targets[0].transform.position;
         agent.speed = walkSpeed[(int)zombieStyle];
+        alertSpeed = Random.Range(1.0f, 2.0f);
+        currentTarget = Random.Range(0, targets.Length);
     }
 
     // Update is called once per frame
@@ -98,6 +101,7 @@ public class ZombieScript : MonoBehaviour
                 {
                     agent.isStopped = true;
                     anim.SetBool("attacking", true);
+                    anim.speed = 1.0f;
 
                     Vector3 pos = (player.transform.position - transform.position).normalized;
                     Quaternion posRotation = Quaternion.LookRotation(new Vector3(pos.x, 0, pos.z));
@@ -137,6 +141,7 @@ public class ZombieScript : MonoBehaviour
                     {
                         agent.destination = player.transform.position;
                         awareOfPlayer = true;
+                        anim.speed = alertSpeed;
                         if (adding == true)
                         {
                             if (SaveScript.zombiesChasing.Contains(this.gameObject))
@@ -177,6 +182,7 @@ public class ZombieScript : MonoBehaviour
                     if (distanceToPlayer > zombieAlertRange)
                     {
                         awareOfPlayer = false;
+                        anim.speed = 1.0f;
                         if (SaveScript.zombiesChasing.Contains(this.gameObject))
                         {
                             SaveScript.zombiesChasing.Remove(this.gameObject);
