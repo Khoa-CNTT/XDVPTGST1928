@@ -108,11 +108,21 @@ public class PickupsScript : MonoBehaviour
                     objID = (int)hit.transform.gameObject.GetComponent<DoorType>().chooseDoor;
                     if(hit.transform.gameObject.GetComponent<DoorType>().locked == true)
                     {
-                        hit.transform.gameObject.GetComponent<DoorType>().message = "Locked. You need to use the " + hit.transform.gameObject.GetComponent<DoorType>().chooseDoor + " key";
+                        if(hit.transform.gameObject.GetComponent<DoorType>().electricDoor == false)
+                        {
+                            hit.transform.gameObject.GetComponent<DoorType>().message = "Locked. You need to use the " + hit.transform.gameObject.GetComponent<DoorType>().chooseDoor + " key";
+                        }
+                        if(hit.transform.gameObject.GetComponent<DoorType>().electricDoor == true && SaveScript.generatorOn == false)
+                        {
+                            hit.transform.gameObject.GetComponent<DoorType>().message = "This door needs a power supply to open ";
+                        }
                     }
-                    if(hit.transform.gameObject.GetComponent<DoorType>().locked == false)
+                    if(hit.transform.gameObject.GetComponent<DoorType>().electricDoor == true && SaveScript.generatorOn == true)
                     {
-                        hit.transform.gameObject.GetComponent<DoorType>().message = "Press E to close the door" ;
+                        if(hit.transform.gameObject.GetComponent<DoorType>().opened == false)
+                        {
+                            hit.transform.gameObject.GetComponent<DoorType>().message = "Press E to close the door" ;
+                        }
                     }
                     
                     doorMessageObj.SetActive(true);

@@ -15,6 +15,7 @@ TagManager:
   - bat
   - axe
   - PlayerHide
+  - Generator
   layers:
   - Default
   - TransparentFX
