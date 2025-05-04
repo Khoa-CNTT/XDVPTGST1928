@@ -29,6 +29,8 @@ public class SaveScript : MonoBehaviour
 
     public static List<GameObject> zombiesChasing = new List<GameObject>();
     public static int zombiesInGame = 0;
+    public static bool generatorOn = false;
+    public static GameObject generator;
 
     private GameObject[] zombies;
 

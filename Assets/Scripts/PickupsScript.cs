@@ -27,6 +27,7 @@ public class PickupsScript : MonoBehaviour
     private AudioSource audioPlayer;
 
     public GameObject doorMessageObj;
+    public GameObject generatorMassageObj;
     public Text doorMessage;
     public AudioClip[] pickupSounds;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,6 +36,7 @@ public class PickupsScript : MonoBehaviour
         pickupPanel.SetActive(false);
         audioPlayer = GetComponent<AudioSource>();
         doorMessageObj.SetActive(false);
+        generatorMassageObj.SetActive(false);
     }
 
     // Update is called once per frame
@@ -137,12 +139,27 @@ public class PickupsScript : MonoBehaviour
                         
                     }
                 }
+                else if (hit.transform.gameObject.CompareTag("generator"))
+                {
+                    SaveScript.generator = hit.transform.gameObject;
+                    if(SaveScript.generatorOn == false)
+                    {
+                        generatorMassageObj.SetActive(true);
+                    }
+                    if(SaveScript.generatorOn == true)
+                    {
+                        generatorMassageObj.SetActive(false);
+                    }
+                }
             }
             else
             {
                 pickupPanel.SetActive(false);
                 doorMessageObj.SetActive(false);
                 SaveScript.doorObject = null;
+
+                generatorMassageObj.SetActive(false);
+                SaveScript.generator = null;
             }
         }
 
